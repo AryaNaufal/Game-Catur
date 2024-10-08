@@ -1,0 +1,51 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(8, 60px);
+    grid-template-rows: repeat(8, 60px);
+    width: 480px;
+    height: 480px;
+}
+
+.square {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+/* The chessboard pattern */
+.square {
+    background-color: #f0d9b5;
+    /* Default light color */
+}
+
+.square.dark {
+    background-color: #b58863;
+    /* Dark color */
+}
+
+.selected {
+    outline: 3px solid yellow;
+    position: relative;
+}
+
+.valid {
+    background-color: #90ee90;
+    /* Light green for valid moves */
+}
+
+.square:hover {
+    background-color: #f0f0f0;
+    /* Highlight square on hover */
+}
