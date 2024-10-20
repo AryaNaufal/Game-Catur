@@ -49,6 +49,24 @@ function updateSquare(square, row, col) {
 }
 
 
+// Fungsi untuk menampilkan langkah yang valid
+function highlightValidMoves(fromRow, fromCol, piece) {
+    for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+            if (getValidSquares(fromRow, fromCol, row, col, piece)) {
+                const square = document.querySelector(`.square[data-row='${row}'][data-col='${col}']`);
+                if (square) {
+                    square.classList.add('valid');
+                    if (initialBoard[row][col] && initialBoard[row][col] !== piece) {
+                        square.classList.add('capture');
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 // Fungsi ketika Papan diklik
 function handleSquareClick(event) {
     const square = event.target;
@@ -56,16 +74,14 @@ function handleSquareClick(event) {
     const col = parseInt(square.dataset.col);
     const piece = initialBoard[row][col];
 
-    // Allow selecting a piece only if it belongs to the current player
     if (selectedSquare) {
         const fromRow = parseInt(selectedSquare.dataset.row);
         const fromCol = parseInt(selectedSquare.dataset.col);
 
-        // If clicking the same square, deselect it
         if (selectedSquare === square) {
             selectedSquare.classList.remove('selected');
             selectedSquare = null;
-            clearValidSquares();
+            clearValidAndCaptureSquares();
             return;
         }
 
@@ -74,27 +90,32 @@ function handleSquareClick(event) {
             movePiece(selectedSquare, square);
             selectedSquare.classList.remove('selected');
             selectedSquare = null;
+            clearValidAndCaptureSquares();
         } else {
             console.log('Invalid move');
         }
     } else {
-        // Memeriksa bidak yang dipilih
+        // Check if the selected piece belongs to the current player
         if (piece && ((currentPlayer === 'white' && piece === piece.toUpperCase()) ||
             (currentPlayer === 'black' && piece === piece.toLowerCase()))) {
             selectedSquare = square;
             square.classList.add('selected');
 
-            clearValidSquares();
+            clearValidAndCaptureSquares();
+            highlightValidMoves(row, col, piece);
         }
     }
 }
 
 
 // Fungsi untuk membersihkan selected square
-function clearValidSquares() {
-    const validSquares = document.querySelectorAll('.valid');
-    validSquares.forEach(square => square.classList.remove('valid'));
+function clearValidAndCaptureSquares() {
+    const validSquares = document.querySelectorAll('.valid, .capture');
+    validSquares.forEach(square => {
+        square.classList.remove('valid', 'capture');
+    });
 }
+
 
 // Fungsi untuk meletakan pion yang diinginkan
 function movePiece(fromSquare, toSquare) {

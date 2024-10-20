@@ -14,6 +14,11 @@ function startTimer() {
         if (currentPlayerTime <= 0) {
             clearInterval(timerInterval);
             alert(`${currentPlayer === 'white' ? 'White' : 'Black'}'s time is up! Switching turns.`);
+            if (selectedSquare) {
+                selectedSquare.classList.remove('selected');
+                selectedSquare = null;
+                clearValidAndCaptureSquares();
+            }
             switchTurn();
         }
     }, 1000);

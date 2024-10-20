@@ -24,7 +24,6 @@ body {
     cursor: pointer;
 }
 
-/* The chessboard pattern */
 .square {
     background-color: #f0d9b5;
     /* Default light color */
@@ -38,14 +37,44 @@ body {
 .selected {
     outline: 3px solid yellow;
     position: relative;
+    z-index: 1;
 }
 
 .valid {
-    background-color: #90ee90;
-    /* Light green for valid moves */
+    position: relative;
+    width: 59px;
+    height: 59px;
 }
 
-.square:hover {
-    background-color: #f0f0f0;
-    /* Highlight square on hover */
+.valid::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(144, 238, 144, 1);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.valid.capture {
+    position: relative;
+    /* Keep this for capture moves */
+    background-color: rgba(255, 0, 0, 0.5);
+    /* Light red background for captures */
+}
+
+.capture::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #FF4500;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
