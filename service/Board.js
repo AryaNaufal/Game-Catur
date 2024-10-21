@@ -133,6 +133,21 @@ function movePiece(fromSquare, toSquare) {
         updateSquare(toSquare, toRow, toCol);
 
         switchTurn();
+
+        // Cek apakah raja lawan dalam kondisi skak atau skakmat
+        const enemyKing = currentPlayer === 'white' ? 'K' : 'k';
+        if (isKingInCheck(enemyKing)) {
+            if (isCheckmate(enemyKing)) {
+                setTimeout(() => {
+                    alert(`${currentPlayer === 'white' ? 'Black' : 'White'} wins! Checkmate!`);
+                    location.reload();
+                }, 200)
+            } else {
+                setTimeout(() => {
+                    alert(`${currentPlayer === 'white' ? 'Black' : 'White'} is in check!`);
+                }, 200)
+            }
+        }
     }
 
     fromSquare.classList.remove('selected');
