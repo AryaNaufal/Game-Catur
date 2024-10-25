@@ -2,8 +2,18 @@ const board = document.getElementById('board');
 
 // Bidak Catur
 const pieces = {
-    'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙',
-    'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟'
+    'R': '<img src="images/white rook.png" alt="White Rook" width="40" height="40">',
+    'N': '<img src="images/white knight.png" alt="White Knight" width="40" height="40">',
+    'B': '<img src="images/white bishop.png" alt="White Bishop" width="40" height="40">',
+    'Q': '<img src="images/white queen.png" alt="White Queen" width="40" height="40">',
+    'K': '<img src="images/white king.png" alt="White King" width="40" height="40">',
+    'P': '<img src="images/white pawn.png" alt="White Pawn" width="40" height="40">',
+    'r': '<img src="images/black rook.png" alt="Black Rook" width="40" height="40">',
+    'n': '<img src="images/black knight.png" alt="Black Knight" width="40" height="40">',
+    'b': '<img src="images/black bishop.png" alt="Black Bishop" width="40" height="40">',
+    'q': '<img src="images/black queen.png" alt="Black Queen" width="40" height="40">',
+    'k': '<img src="images/black king.png" alt="Black King" width="40" height="40">',
+    'p': '<img src="images/black pawn.png" alt="Black Pawn" width="40" height="40">'
 };
 
 let selectedSquare = null;
@@ -69,7 +79,7 @@ function highlightValidMoves(fromRow, fromCol, piece) {
 
 // Fungsi ketika Papan diklik
 function handleSquareClick(event) {
-    const square = event.target;
+    const square = event.target.closest('.square');
     const row = parseInt(square.dataset.row);
     const col = parseInt(square.dataset.col);
     const piece = initialBoard[row][col];
